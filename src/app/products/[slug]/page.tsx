@@ -1,14 +1,14 @@
 interface ProductDetailPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
   // searchParams can also be accessed if needed
 }
 
 // This component will be a Server Component by default
-export default function ProductDetailPage({ params }: ProductDetailPageProps) {
+export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
   // Direct access to params.slug is now allowed in Next.js
-  const { slug } = params;
+  const { slug } = await params;
 
   return (
     <div className="container-custom mx-auto py-8 md:py-10">
@@ -45,18 +45,12 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
 }
 
 // Optional: Add generateMetadata function if fetching title/description dynamically
-// export async function generateMetadata({ params }: ProductDetailPageProps): Promise<Metadata> {
-//   const slug = params.slug;
-//   // Fetch product data based on slug
-//   // const product = await getProductBySlug(slug);
-//   // return { title: product.name, description: product.shortDescription };
-//   return { title: `Product: ${slug}` }; // Placeholder
-// }
+export async function generateMetadata({ params }: ProductDetailPageProps) {
+  const { slug } = await params;
+  return { title: `Product: ${slug}` }; // Placeholder
+}
 
 // Optional: Add generateStaticParams if using SSG for product pages
-// export async function generateStaticParams() {
-//   // Fetch all product slugs from Sanity
-//   // const products = await getAllProductSlugs();
-//   // return products.map((product) => ({ slug: product.slug }));
-//   return [{ slug: 'placeholder-product-1' }, { slug: 'placeholder-product-2' }]; // Placeholder
-// } 
+export async function generateStaticParams() {
+  return [{ slug: 'placeholder-product-1' }, { slug: 'placeholder-product-2' }]; // Placeholder
+} 

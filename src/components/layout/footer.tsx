@@ -105,13 +105,14 @@ export function Footer() {
             <p className="text-sm text-muted-foreground">
               Subscribe to our newsletter for product updates, wellness tips, and exclusive offers.
             </p>
-            <div className="flex">
+            <div className="flex" suppressHydrationWarning>
               <Input 
                 type="email" 
                 placeholder="Enter your email" 
                 className="rounded-l-full rounded-r-none border-r-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+                suppressHydrationWarning
               />
-              <Button className="rounded-l-none rounded-r-full bg-primary">
+              <Button className="rounded-l-none rounded-r-full bg-primary" suppressHydrationWarning>
                 <Send size={16} />
                 <span className="sr-only">Subscribe</span>
               </Button>
@@ -119,9 +120,9 @@ export function Footer() {
             <div className="space-y-2">
               <div className="flex items-center text-sm text-muted-foreground">
                 <Mail size={16} className="mr-2" />
-                <a href={`mailto:${contactEmail}`} className="hover:text-primary transition-colors">
-            {contactEmail}
-          </a>
+                <a href={`mailto:${contactEmail}`} className="hover:text-primary transition-colors" suppressHydrationWarning>
+                  {contactEmail}
+                </a>
               </div>
               <div className="flex items-center text-sm text-muted-foreground">
                 <Phone size={16} className="mr-2" />

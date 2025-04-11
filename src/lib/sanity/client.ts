@@ -1,6 +1,15 @@
 import { createClient } from '@sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
 
+// Define the SanityImageSource type
+interface SanityImageSource {
+  asset?: {
+    _ref: string;
+    _type: string;
+  };
+  _type?: string;
+}
+
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
 const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2024-04-03'; // Use a recent API version
@@ -24,7 +33,7 @@ export const sanityClient = createClient({
 // Read more: https://www.sanity.io/docs/image-url
 const builder = imageUrlBuilder(sanityClient);
 
-export function urlFor(source: any) {
+export function urlFor(source: SanityImageSource) {
   // Ensure that source image has a valid asset ref for urlFor
   if (!source || !source.asset) {
     return undefined; // Or return a placeholder image URL
